@@ -1,4 +1,5 @@
 # Project: aws-echo-lambda
+[![Build and Test](https://github.com/Draqun/aws-echo-lambda/workflows/aws_echo_lambda/badge.svg)](https://github.com/Draqun/aws-echo-lambda/actions)
 Welcome here dear developer. Since you have looked at this repository you are probably interested in this create AWS Lambda for Python language. You can use this repository as an example, or use the lambda image to test your localstack configuration. Feel free to use the resources of this repository for any purpose according to the license. If you find a bug somewhere let me know, or prepare a fix yourself and then report it to me via pull-request. Good luck.
 
 ## Project structure
