@@ -121,3 +121,6 @@ The Makefile defines some targets for running and reporting the unit tests using
 - `generate-aws-echo-lambda-deps` - This target generates the dependencies for the lambda function by calling a generic target .generate-lambda-deps with the appropriate arguments.
 - `build-aws-echo-lambda` - This target builds the lambda function image by calling a generic target .build-lambda-image with the appropriate arguments.
 - `tag-aws-echo-lambda` - This target tags the lambda function image by calling a generic target .tag-lambda-image with the appropriate arguments.
+
+### Locastack
+- `awslocal-stack-logs` - This goal allow to track localstack logs.

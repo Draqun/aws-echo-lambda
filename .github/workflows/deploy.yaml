@@ -1,0 +1,42 @@
+name: build-image-and-deploy-to-dockerhub
+run-name: ${{ github.triggering_actor }} launched deploy via ${{ github.event_name }} on ${{ github.ref_name }}
+on:
+  push:
+    branches:
+    - "master"
+    tags:
+    - "v*"
+
+permissions:
+  contents: read
+
+jobs:
+  build-aws-echo-lambda:
+    name: Build and deploy aws-echo-lambda
+    runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+    steps:
+    - name: Check out the repo
+      uses: actions/checkout@v4
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Build Docker image
+      run: make build-aws-echo-lambda
+
+    - name: Create image tag from tag ${{ github.ref_name }}
+      if: startsWith(github.ref, 'refs/tags/v')
+      run: make tag-aws-echo-lambda TAG=${{ github.ref_name }}
+
+    - name: Create image tag from master branch
+      if: github.ref == 'refs/heads/master'
+      run: make tag-aws-echo-lambda TAG=latest
+
+    - name: Push Docker image
+      run: docker push your-dockerhub-username/your-image-name:latest

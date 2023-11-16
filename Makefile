@@ -17,6 +17,7 @@ TEST ?= tests
 # Lambdas
 AWS_ECHO_LAMBDA_NAME := $(PROJECT_NAME)
 AWS_ECHO_LAMBDA_DOCKERFILE_PATH := "docker/Dockerfile"
+REPOSITORY := draqun/$(AWS_ECHO_LAMBDA_NAME)
 
 
 # Manage project
@@ -127,8 +128,8 @@ test-coverage-html:
 	@echo -e "\e[34mBuild finished.\e[0m"
 
 .tag-lambda-image:
-	@echo -e "Tagging image $(IMAGE_NAME) as $(LAMBDA_NAME):$(TAG)."
-	docker image tag $(IMAGE_NAME) $(LAMBDA_NAME):$(TAG)
+	@echo -e "Tagging image $(IMAGE_NAME) as $(REPOSITORY):$(TAG)."
+	docker image tag $(IMAGE_NAME) $(REPOSITORY):$(TAG)
 	@echo -e "\e[34mTagging finished.\e[0m"
 
 # Specific targets
@@ -140,4 +141,11 @@ build-aws-echo-lambda:
 	LAMBDA_NAME=$(AWS_ECHO_LAMBDA_NAME) DOCKERFILE_PATH=$(AWS_ECHO_LAMBDA_DOCKERFILE_PATH) $(MAKE) .build-lambda-image
 
 tag-aws-echo-lambda:
-	IMAGE_NAME=$(AWS_ECHO_LAMBDA_NAME) LAMBDA_NAME=$(AWS_ECHO_LAMBDA_NAME) TAG=$(TAG) $(MAKE) .tag-lambda-image
+	IMAGE_NAME=$(AWS_ECHO_LAMBDA_NAME) REPOSITORY=$(REPOSITORY) TAG=$(TAG) $(MAKE) .tag-lambda-image
+
+push-aws-echo-lambda:
+	docker push $(REPOSITORY):$(TAG)
+
+# Localstack
+awslocal-stack-logs:
+	docker logs aws-echo-lambda-localstack-1 -f

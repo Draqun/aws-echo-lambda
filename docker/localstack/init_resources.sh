@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-API_NAME="api-integration"
+API_NAME="echo-api"
 REGION=eu-central-1
 STAGE=test
 
@@ -63,13 +63,13 @@ add_endpoint(){
       --http-method $3 \
       --type AWS_PROXY \
       --integration-http-method $3 \
-      --uri arn:aws:apigateway:${REGION}:lambda:path/2015-03-31/functions/arn:aws:lambda:${REGION}:000000000000:function:evfleet-lambda-$2/invocations \
+      --uri arn:aws:apigateway:${REGION}:lambda:path/2015-03-31/functions/arn:aws:lambda:${REGION}:000000000000:function:$2/invocations \
       --passthrough-behavior WHEN_NO_MATCH
   [ $? == 0 ] || fail 5 "Failed: AWS / apigateway / put-integration"
 }
 
 # ADD delete-charging-station-from-hubject
-add_endpoint $PARENT_RESOURCE_ID "LAMBDA_NAME" "GET"
+add_endpoint $PARENT_RESOURCE_ID $LAMBDA_NAME "GET"
 
 awslocal apigateway create-deployment \
     --region ${REGION} \

@@ -4,11 +4,11 @@ version: '3.8'
 
 services:
   localstack:
-    image: localstack/localstack-pro
+    image: localstack/localstack
     environment:
       - DEBUG=1
       - LOCALSTACK_API_KEY=${LOCALSTACK_API_KEY}
-      - LOCALSTACK_SERVICES=lambda,ecr,apigateway,sts
+      - LOCALSTACK_SERVICES=sts,ecr,lambda,apigateway
       - LS_LOG=debug
     ports:
       - "127.0.0.1:4566:4566"            # LocalStack Gateway
