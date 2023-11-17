@@ -15,12 +15,19 @@ jobs:
   build-aws-echo-lambda:
     name: Build and deploy aws-echo-lambda
     runs-on: ubuntu-22.04
-    defaults:
-      run:
-        working-directory: ${{ env.WORKING_DIRECTORY }}
     steps:
     - name: Check out the repo
       uses: actions/checkout@v4
+
+    - uses: ./.github/actions/setup-env
+      with:
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+    - run: make generate-aws-echo-lambda-deps
+    - name: Upload requirements.txt as artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: requirements
+        path: requirements.txt
 
     - name: Login to Docker Hub
       uses: docker/login-action@v3
@@ -36,7 +43,7 @@ jobs:
       run: make tag-aws-echo-lambda TAG=${{ github.ref_name }}
 
     - name: Create image tag from master branch
-      if: github.ref == 'refs/heads/master'
+      if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop'
       run: make tag-aws-echo-lambda TAG=latest
 
     - name: Push Docker image
