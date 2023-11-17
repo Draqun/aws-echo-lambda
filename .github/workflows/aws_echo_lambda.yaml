@@ -111,11 +111,8 @@ jobs:
       with:
         working-directory: ${{ env.WORKING_DIRECTORY }}
     - run: make test-coverage-html
-    - name: Extract coverage from HTML report
-      id: extract-coverage
-      run: |
-        COVERAGE_VALUE=$(cat htmlcov/index.html | grep -oP '<span class="pc_cov">[0-9]+%</span>' | grep -oP '[0-9]+')
-        echo "Coverage value: $COVERAGE_VALUE"
-        echo "::set-output name=coverage::$COVERAGE_VALUE"
-    - name: Update README with coverage badge
-      run: sed -i "s/XX/${{ steps.extract-coverage.outputs.coverage }}/" README.md
+    - name: Upload coverage report as artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: coverage-report
+        path: htmlcov
