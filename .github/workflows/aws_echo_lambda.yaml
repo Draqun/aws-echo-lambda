@@ -110,4 +110,11 @@ jobs:
     - uses: ./.github/actions/setup-env
       with:
         working-directory: ${{ env.WORKING_DIRECTORY }}
-    - run: make run-unit-tests
+    - run: make test-coverage-html
+    - name: Extract coverage from HTML report
+      id: extract-coverage
+      run: |
+        COVERAGE_VALUE=$(cat htmlcov/index.html | grep -oP 'Total</td><td class="right">[0-9]+' | grep -oP '[0-9]+')
+        echo "::set-output name=coverage::$COVERAGE_VALUE"
+    - name: Update README with coverage badge
+      run: sed -i "s/XX/${{ steps.extract-coverage.outputs.coverage }}/" README.md
