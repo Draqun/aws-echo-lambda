@@ -114,8 +114,8 @@ jobs:
     - name: Extract coverage from HTML report
       id: extract-coverage
       run: |
-        COVERAGE_VALUE=$(cat htmlcov/index.html | grep -oP 'Total</td><td class="right">[0-9]+' | grep -oP '[0-9]+') \
-        && echo "Coverage value: $COVERAGE_VALUE" \
-        && echo "::set-output name=coverage::$COVERAGE_VALUE"
+        COVERAGE_VALUE=$(cat htmlcov/index.html | grep -oP '<span class="pc_cov">[0-9]+%</span>' | grep -oP '[0-9]+')
+        echo "Coverage value: $COVERAGE_VALUE"
+        echo "::set-output name=coverage::$COVERAGE_VALUE"
     - name: Update README with coverage badge
       run: sed -i "s/XX/${{ steps.extract-coverage.outputs.coverage }}/" README.md
