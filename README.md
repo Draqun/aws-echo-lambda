@@ -2,8 +2,8 @@
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 [![Python Version](https://img.shields.io/badge/Python-3.11-blue)](https://www.python.org/downloads/release)
 [![Coverage Status](https://coveralls.io/repos/github/Draqun/aws-echo-lambda/badge.svg?branch=master)](https://coveralls.io/github/Draqun/aws-echo-lambda?branch=master)
-[![Actions](https://github.com/Draqun/aws-echo-lambda/actions/workflows/main_pipeline.yaml/badge.svg)](https://github.com/Draqun/aws-echo-lambda/actions)
-[![Actions](https://github.com/Draqun/aws-echo-lambda/actions/workflows/deploy_pipeline.yaml/badge.svg)](https://github.com/Draqun/aws-echo-lambda/actions)
+[![Main pipeline status](https://github.com/Draqun/aws-echo-lambda/actions/workflows/main_pipeline.yaml/badge.svg)](https://github.com/Draqun/aws-echo-lambda/actions)
+[![Deploy pipeline status](https://github.com/Draqun/aws-echo-lambda/actions/workflows/deploy_pipeline.yaml/badge.svg)](https://github.com/Draqun/aws-echo-lambda/actions)
 
 Welcome here dear developer. Since you have looked at this repository you are probably interested in this create AWS Lambda for Python language. You can use this repository as an example, or use the lambda image to test your localstack configuration. Feel free to use the resources of this repository for any purpose according to the license. If you find a bug somewhere let me know, or prepare a fix yourself and then report it to me via pull-request. Good luck.
 
