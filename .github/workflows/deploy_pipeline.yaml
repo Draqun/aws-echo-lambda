@@ -1,4 +1,4 @@
-name: build-image-and-deploy-to-dockerhub
+name: Deploy pipeline
 run-name: ${{ github.triggering_actor }} launched deploy via ${{ github.event_name }} on ${{ github.ref_name }}
 on:
   push:

@@ -1,12 +1,11 @@
-name: aws-echo-lambda
+name: Main pipeline
 run-name: ${{ github.ref_name }} on ${{ github.event_name }} - ${{ github.triggering_actor }} started aws-echo-lambda-pipeline
 on:
   push:
     paths:
     - "src/**"
     - "tests/**"
-    - ".github/actions/**"
-    - ".github/workflows/aws_echo_lambda.yaml"
+    - ".github/**/*.yaml"
   pull_request:
     paths:
     - "src/**"
@@ -116,3 +115,8 @@ jobs:
       with:
         name: coverage-report
         path: htmlcov
+    - name: Upload Coverage Results
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.github_token }}
+        path-to-lcov: lcov.info

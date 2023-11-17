@@ -264,5 +264,5 @@ pyrightconfig.json
 # Custom
 **/junit
 requirements.txt
-
+lcov.info
 # End of https://www.toptal.com/developers/gitignore/api/pycharm+all,pythonrequirements.txt

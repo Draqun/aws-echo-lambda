@@ -111,7 +111,7 @@ static-analysis: package-analysis isort-analysis black-analysis pylint-analysis 
 # Tests
 
 run-unit-tests:
-	PYTHONPATH="${PWD}/$(SRC)" poetry run python3 -m pytest -vv --cov-report term-missing --cov-report "xml" --cov-fail-under="100" --cov="src/" "tests/unit/${DIR}"
+	PYTHONPATH="${PWD}/$(SRC)" poetry run python3 -m pytest -vv --cov-report term-missing --cov-report "lcov:lcov.info" --cov-fail-under="100" --cov="src/" "tests/unit/${DIR}"
 
 test-coverage-html:
 	- $(MAKE) run-unit-tests
