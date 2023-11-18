@@ -11,6 +11,8 @@ on:
 permissions:
   contents: read
 
+env:
+  WORKING_DIRECTORY: "."
 jobs:
   build-aws-echo-lambda:
     name: Build and deploy aws-echo-lambda
