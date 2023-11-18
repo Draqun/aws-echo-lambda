@@ -25,10 +25,12 @@ init:
 	@echo -e "\e[32mEnvironment initialized.\e[0m"
 
 install-dependencies: init
+	python -m pip install --upgrade pip
 	poetry install
 	@echo -e "\e[32mDependencies installed.\e[0m"
 
 update-dependencies:
+	python -m pip install --upgrade pip
 	poetry update
 	@echo -e "\e[32mDependencies updated.\e[0m"
 

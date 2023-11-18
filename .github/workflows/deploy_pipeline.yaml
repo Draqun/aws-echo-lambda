@@ -13,6 +13,7 @@ permissions:
 
 env:
   WORKING_DIRECTORY: "."
+  REPOSITORY: "draqun/aws-echo-lambda"
 jobs:
   build-aws-echo-lambda:
     name: Build and deploy aws-echo-lambda
@@ -40,13 +41,14 @@ jobs:
     - name: Build Docker image
       run: make build-aws-echo-lambda
 
-    - name: Create image tag from tag ${{ github.ref_name }}
+    - name: Create and Push image tag from tag ${{ github.ref_name }}
       if: startsWith(github.ref, 'refs/tags/v')
-      run: make tag-aws-echo-lambda TAG=${{ github.ref_name }}
+      run: |
+        TAG=${{ github.ref_name }} make tag-aws-echo-lambda
+        TAG=${{ github.ref_name }} REPOSITORY=${{ env.REPOSITORY }} make push-aws-echo-lambda
 
-    - name: Create image tag from master branch
+    - name: Create and Push image tag from master branch
       if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop'
-      run: make tag-aws-echo-lambda TAG=latest
-
-    - name: Push Docker image
-      run: docker push your-dockerhub-username/your-image-name:latest
+      run: |
+        TAG=latest make tag-aws-echo-lambda
+        TAG=latest REPOSITORY=${{ env.REPOSITORY }} make push-aws-echo-lambda
