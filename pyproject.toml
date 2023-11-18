@@ -25,6 +25,7 @@ pip-audit = "^2.6.1"
 
 [tool.poetry.group.docs.dependencies]
 sphinx = {extras = ["sphinx-autodoc", "sphinx-coverage", "sphinx-doctest", "sphinx-githubpages"], version = "^7.2.6"}
+myst-parser = "^2.0.0"
 
 [build-system]
 requires = ["poetry-core"]

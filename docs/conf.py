@@ -6,27 +6,26 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'aws-echo-lambda'
-copyright = '2023, Damian Giebas'
-author = 'Damian Giebas'
-
-import os
-import sys
-sys.path.insert(0, os.path.abspath('../'))
-
+project = "aws-echo-lambda"
+copyright = "2023, Damian Giebas"
+author = "Damian Giebas"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.doctest', 'sphinx.ext.coverage', 'sphinx.ext.githubpages']
+extensions = [
+    "sphinx.ext.autodoc",
+    "sphinx.ext.doctest",
+    "sphinx.ext.coverage",
+    "sphinx.ext.githubpages",
+    "myst_parser",
+]
 
-templates_path = ['_templates']
+templates_path = ["_templates"]
 exclude_patterns = []
-
-
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'classic'
-html_static_path = ['_static']
+html_theme = "classic"
+html_static_path = ["_static"]
