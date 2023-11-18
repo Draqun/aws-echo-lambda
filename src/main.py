@@ -8,6 +8,13 @@ logger = logging.getLogger()
 
 
 class MainEntrypoint:
+    """Main entrypoint class
+
+    This class is a functor that is used instead of a typical function. Its purpose is to encapsulate the responsibility
+     of loading the configuration, setting the appropriate values of the tools used in the project (e.g. the logging mod
+     ule) and receiving the request and calling the business logic.
+    """
+
     def __init__(self):
         self._logging_level = {
             "DEBUG": logging.DEBUG,

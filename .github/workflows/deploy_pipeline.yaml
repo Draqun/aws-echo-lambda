@@ -48,7 +48,13 @@ jobs:
         TAG=${{ github.ref_name }} REPOSITORY=${{ env.REPOSITORY }} make push-aws-echo-lambda
 
     - name: Create and Push image tag from master branch
-      if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop'
+      if: github.ref == 'refs/heads/master'
       run: |
         TAG=latest make tag-aws-echo-lambda
         TAG=latest REPOSITORY=${{ env.REPOSITORY }} make push-aws-echo-lambda
+
+    - name: Create and Push image tag from last working branch
+      if: github.ref != 'refs/heads/master' && !startsWith(github.ref, 'refs/tags/')
+      run: |
+        TAG=develop make tag-aws-echo-lambda
+        TAG=develop REPOSITORY=${{ env.REPOSITORY }} make push-aws-echo-lambda

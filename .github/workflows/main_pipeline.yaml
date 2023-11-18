@@ -115,7 +115,7 @@ jobs:
       with:
         name: coverage-report
         path: htmlcov
-    - name: Upload Coverage Results
+    - name: Upload Coverage Results to coverall
       uses: coverallsapp/github-action@master
       with:
         github-token: ${{ secrets.github_token }}
