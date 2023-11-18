@@ -55,6 +55,10 @@ remove-all-containers:
 remove-all-images:
 	docker rmi -f `docker images -aq`
 
+# Docs
+generate-docs:
+	cd docs && $(MAKE) html
+
 # Static analysis
 
 pylint-analysis-src:

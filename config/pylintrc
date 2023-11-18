@@ -430,7 +430,6 @@ disable=raw-checker-failed,
         use-implicit-booleaness-not-comparison-to-zero,
         use-symbolic-message-instead,
         too-few-public-methods,
-        missing-docstring,
         logging-fstring-interpolation
 
 # Enable the message, report, category or checker with the given id(s). You can
