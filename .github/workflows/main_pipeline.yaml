@@ -1,0 +1,122 @@
+name: Main pipeline
+run-name: ${{ github.ref_name }} on ${{ github.event_name }} - ${{ github.triggering_actor }} started aws-echo-lambda-pipeline
+on:
+  push:
+    paths:
+    - "src/**"
+    - "tests/**"
+    - ".github/**/*.yaml"
+  pull_request:
+    paths:
+    - "src/**"
+    - "tests/**"
+
+env:
+  WORKING_DIRECTORY: "."
+jobs:
+  packages-analysis:
+    name: Check dependencies
+    runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-env
+        with:
+          working-directory: ${{ env.WORKING_DIRECTORY }}
+      - run: make package-analysis
+
+  check-imports-order:
+    name: Check imports order
+    needs: packages-analysis
+    runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+    steps:
+    - uses: actions/checkout@v4
+    - uses: ./.github/actions/setup-env
+      with:
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+    - run: make isort-analysis
+
+  check-code-style-by-black:
+    name: Check code style by black
+    needs: packages-analysis
+    runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+    steps:
+    - uses: actions/checkout@v4
+    - uses: ./.github/actions/setup-env
+      with:
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+    - run: make black-analysis
+
+  check-code-by-pylint:
+    name: Check code by pylint
+    needs: packages-analysis
+    runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+    steps:
+    - uses: actions/checkout@v4
+    - uses: ./.github/actions/setup-env
+      with:
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+    - run: make pylint-analysis
+
+  check-code-by-mypy:
+    name: Check code by mypy
+    needs: packages-analysis
+    runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+    steps:
+    - uses: actions/checkout@v4
+    - uses: ./.github/actions/setup-env
+      with:
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+    - run: make mypy-analysis
+
+  check-code-by-bandit:
+    name: Check code by mypy
+    needs: packages-analysis
+    runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+    steps:
+    - uses: actions/checkout@v4
+    - uses: ./.github/actions/setup-env
+      with:
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+    - run: make bandit-analysis
+
+  run-unit-tests:
+    name: Run unit tests
+    needs: packages-analysis
+    runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+    steps:
+    - uses: actions/checkout@v4
+    - uses: ./.github/actions/setup-env
+      with:
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+    - run: make test-coverage-html
+    - name: Upload coverage report as artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: coverage-report
+        path: htmlcov
+    - name: Upload Coverage Results to coverall
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.github_token }}
+        path-to-lcov: lcov.info
