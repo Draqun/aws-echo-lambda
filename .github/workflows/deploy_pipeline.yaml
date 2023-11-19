@@ -3,7 +3,6 @@ run-name: ${{ github.triggering_actor }} launched deploy via ${{ github.event_na
 on:
   push:
     branches:
-    - "develop"
     - "master"
     tags:
     - "v*"

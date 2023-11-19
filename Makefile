@@ -59,9 +59,6 @@ remove-all-images:
 generate-docs:
 	cd docs && $(MAKE) html
 
-check-docs-coverage:
-	cd docs && $(MAKE) coverage
-
 # Static analysis
 
 pylint-analysis-src:
