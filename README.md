@@ -1,4 +1,6 @@
 # Project: aws-echo-lambda
+![Logo](./docs/_static/ai_logo.png?raw=true "aws-echo-lambda")
+
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 [![Python Version](https://img.shields.io/badge/Python-3.11-blue)](https://www.python.org/downloads/release)
 [![Coverage Status](https://coveralls.io/repos/github/Draqun/aws-echo-lambda/badge.svg?branch=master)](https://coveralls.io/github/Draqun/aws-echo-lambda?branch=master)
@@ -7,8 +9,6 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/draqun/aws-echo-lambda.svg)](https://hub.docker.com/r/apache/airflow)
 [![Docker Stars](https://img.shields.io/docker/stars/draqun/aws-echo-lambda.svg)](https://hub.docker.com/r/apache/airflow)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-
-
 
 Welcome here dear developer. Since you have looked at this repository you are probably interested in this create AWS Lambda for Python language. You can use this repository as an example, or use the lambda image to test your localstack configuration. Feel free to use the resources of this repository for any purpose according to the license. If you find a bug somewhere let me know, or prepare a fix yourself and then report it to me via pull-request. Good luck.
 

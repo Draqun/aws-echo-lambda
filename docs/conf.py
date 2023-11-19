@@ -10,15 +10,17 @@ project = "aws-echo-lambda"
 copyright = "2023, Damian Giebas"
 author = "Damian Giebas"
 
+# Ustawienie ścieżki do kodu źródłowego
+import os
+import sys
+sys.path.insert(0, os.path.abspath('../src'))
+
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = [
     "sphinx.ext.autodoc",
-    "sphinx.ext.doctest",
-    "sphinx.ext.coverage",
     "sphinx.ext.githubpages",
-    "myst_parser",
 ]
 
 templates_path = ["_templates"]

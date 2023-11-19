@@ -1,1 +1,0 @@
-# Welcome to aws-echo-lambda's documentation!
