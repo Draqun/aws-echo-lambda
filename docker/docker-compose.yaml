@@ -7,7 +7,6 @@ services:
     image: localstack/localstack
     environment:
       - DEBUG=1
-      - LOCALSTACK_API_KEY=${LOCALSTACK_API_KEY}
       - LOCALSTACK_SERVICES=sts,ecr,lambda,apigateway
       - LS_LOG=debug
     ports:

@@ -3,26 +3,26 @@ API_NAME="echo-api"
 REGION=eu-central-1
 STAGE=test
 
-LAMBDA_NAME="aws_echo_lambda"
+LAMBDA_NAME="aws-echo-lambda"
 
 set -x
-# This file is used for local development only
-create_lambda_repo(){
-  awslocal ecr create-repository \
-    --region ${REGION} \
-    --repository-name $1
-}
-
-create_lambda_repo ${LAMBDA_NAME}
+## This file is used for local development only
+#create_lambda_repo(){
+#  awslocal ecr create-repository \
+#    --region ${REGION} \
+#    --repository-name $1
+#}
+#
+#create_lambda_repo ${LAMBDA_NAME}
 
 # Create function (fails on start, need push image to local ecr)
 
 awslocal lambda create-function \
   --region ${REGION} \
-  --function-name LAMBDA_NAME \
+  --function-name ${LAMBDA_NAME} \
   --package-type Image \
-  --code ImageUri="hashicorp/http-echo:latest" \
-  --handler LAMBDA_NAME \
+  --code ImageUri="draqun/${LAMBDA_NAME}:latest" \
+  --handler main.lambda_handler \
   --role arn:aws:iam::000000000000:role/lambda-role
 
 
