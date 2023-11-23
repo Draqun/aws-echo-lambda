@@ -137,4 +137,8 @@ The Makefile defines some targets for running and reporting the unit tests using
 - `tag-aws-echo-lambda` - This target tags the lambda function image by calling a generic target .tag-lambda-image with the appropriate arguments.
 
 ### Locastack
-- `awslocal-stack-logs` - This goal allow to track localstack logs.
+- `.invoke-function` - This target invokes a lambda function with a given payload using the localstack endpoint URL. The lambda function is specified by the environment variable LAMBDA_NAME, and the payload is a JSON object with a body attribute that is parsed by the jq tool. The result of invoking the lambda function is written to the standard output device.
+- `awslocal-stack-logs` - This target shows the logs of the localstack docker container. The docker container is specified by the name aws-echo-lambda-localstack-1, and the -f flag is used to follow the logs in real time.
+- `awslocal-list-local-functions` - This target lists the lambda functions that are deployed on the localstack. For this purpose, the aws command with the localstack endpoint URL and the lambda list-functions subcommand is used.
+- `awslocal-get-rest-apis` - This target gets the rest APIs that are created on the localstack. For this purpose, the aws command with the localstack endpoint URL and the apigateway get-rest-apis subcommand is used.
+- `awslocal-describe-api` - This target describes the resources of a given rest API on the localstack. For this purpose, the aws command with the localstack endpoint URL, the apigateway get-resources subcommand, and the rest API ID as an environment variable REST_API_ID is used.

@@ -163,7 +163,7 @@ local-invoke-aws-echo-lambda:
 local-invoke-aws-echo-lambda-by-curl:
 	curl -d $(LAMBDA_PAYLOAD) \
 		-H "Content-Type: application/json" \
-		-X GET $(LOCALSTACK_URL)/restapis/$(REST_API_ID)/test/_user_request_/aws-echo-lambda
+		-X POST $(LOCALSTACK_URL)/restapis/$(REST_API_ID)/test/_user_request_/aws-echo-lambda
 
 # AWS LOCALSTACK
 
@@ -177,9 +177,14 @@ local-invoke-aws-echo-lambda-by-curl:
 		--cli-binary-format raw-in-base64-out \
 		/dev/stdout
 
-awslocal-list-functions:
-	aws lambda list-functions \
-		--endpoint-url $(LOCALSTACK_URL)
-
 awslocal-stack-logs:
 	docker logs aws-echo-lambda-localstack-1 -f
+
+awslocal-list-local-functions:
+	aws --endpoint-url $(LOCALSTACK_URL) lambda list-functions
+
+awslocal-get-rest-apis:
+	aws --endpoint-url $(LOCALSTACK_URL) apigateway get-rest-apis
+
+awslocal-describe-api:
+	aws --endpoint-url $(LOCALSTACK_URL) apigateway get-resources --rest-api-id $(REST_API_ID)

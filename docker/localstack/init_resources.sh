@@ -23,6 +23,7 @@ awslocal lambda create-function \
   --package-type Image \
   --code ImageUri="draqun/${LAMBDA_NAME}:latest" \
   --handler main.lambda_handler \
+  --environment "Variables={LOGGING_LVL=\"DEBUG\"}" \
   --role arn:aws:iam::000000000000:role/lambda-role
 
 
@@ -69,7 +70,7 @@ add_endpoint(){
 }
 
 # ADD delete-charging-station-from-hubject
-add_endpoint $PARENT_RESOURCE_ID $LAMBDA_NAME "GET"
+add_endpoint $PARENT_RESOURCE_ID $LAMBDA_NAME "POST"
 
 awslocal apigateway create-deployment \
     --region ${REGION} \
