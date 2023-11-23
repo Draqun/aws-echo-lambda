@@ -19,6 +19,8 @@ AWS_ECHO_LAMBDA_NAME := $(PROJECT_NAME)
 AWS_ECHO_LAMBDA_DOCKERFILE_PATH := "docker/Dockerfile"
 REPOSITORY := draqun/$(AWS_ECHO_LAMBDA_NAME)
 LOCALSTACK_URL := http://127.0.0.1:4566
+LOCALSTACK_REGION := eu-central-1
+
 REST_API_ID = $(shell aws --endpoint-url $(LOCALSTACK_URL) apigateway get-rest-apis --query 'items[?id].id' --output text --region $(LOCALSTACK_REGION))
 
 
@@ -161,7 +163,7 @@ local-invoke-aws-echo-lambda:
 local-invoke-aws-echo-lambda-by-curl:
 	curl -d $(LAMBDA_PAYLOAD) \
 		-H "Content-Type: application/json" \
-		-X DELETE $(LOCALSTACK_URL)/restapis/$(REST_API_ID)/test/_user_request_/aws_echo_lambda
+		-X GET $(LOCALSTACK_URL)/restapis/$(REST_API_ID)/test/_user_request_/aws-echo-lambda
 
 # AWS LOCALSTACK
 

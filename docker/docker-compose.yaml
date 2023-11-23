@@ -4,17 +4,15 @@ version: '3.8'
 
 services:
   localstack:
-    image: localstack/localstack
+    image: localstack/localstack-pro
     environment:
       - DEBUG=1
+      - LOCALSTACK_API_KEY=${LOCALSTACK_API_KEY}
       - LOCALSTACK_SERVICES=sts,ecr,lambda,apigateway
       - LS_LOG=debug
     ports:
-      - "127.0.0.1:4566:4566"            # LocalStack Gateway
-      - "127.0.0.1:4510-4559:4510-4559"  # external services port range
-      - "127.0.0.1:53:53"                # DNS config (required for Pro)
-      - "127.0.0.1:53:53/udp"            # DNS config (required for Pro)
-      - "127.0.0.1:443:443"              # LocalStack HTTPS Gateway (required for Pro)
+      - "4566:4566"            # LocalStack Gateway
+      - "443:443"              # LocalStack HTTPS Gateway (required for Pro)
     volumes:
       - './localstack/init_resources.sh:/etc/localstack/init/ready.d/init-aws.sh'
       - "/var/run/docker.sock:/var/run/docker.sock"
