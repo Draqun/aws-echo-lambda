@@ -18,6 +18,10 @@ TEST ?= tests
 AWS_ECHO_LAMBDA_NAME := $(PROJECT_NAME)
 AWS_ECHO_LAMBDA_DOCKERFILE_PATH := "docker/Dockerfile"
 REPOSITORY := draqun/$(AWS_ECHO_LAMBDA_NAME)
+LOCALSTACK_URL := http://127.0.0.1:4566
+LOCALSTACK_REGION := eu-central-1
+
+REST_API_ID = $(shell aws --endpoint-url $(LOCALSTACK_URL) apigateway get-rest-apis --query 'items[?id].id' --output text --region $(LOCALSTACK_REGION))
 
 
 # Manage project
@@ -152,6 +156,35 @@ tag-aws-echo-lambda:
 push-aws-echo-lambda:
 	docker push $(REPOSITORY):$(TAG)
 
+LAMBDA_PAYLOAD := '{"ex_1": "1", "ex_2": "test", "ex_3": {"1":"2"}, "ex_4": [1, 2, 3]}'
+local-invoke-aws-echo-lambda:
+	LAMBDA_NAME=$(AWS_ECHO_LAMBDA_NAME) PAYLOAD=$(LAMBDA_PAYLOAD) $(MAKE) .invoke-function
+
+local-invoke-aws-echo-lambda-by-curl:
+	curl -d $(LAMBDA_PAYLOAD) \
+		-H "Content-Type: application/json" \
+		-X POST $(LOCALSTACK_URL)/restapis/$(REST_API_ID)/test/_user_request_/aws-echo-lambda
+
+# AWS LOCALSTACK
+
+
 # Localstack
+.invoke-function:
+	aws lambda invoke \
+		--endpoint-url $(LOCALSTACK_URL) \
+		--function-name $(LAMBDA_NAME) \
+		--payload '{"body": $(shell echo '$(PAYLOAD)' | jq "@json" )}' \
+		--cli-binary-format raw-in-base64-out \
+		/dev/stdout
+
 awslocal-stack-logs:
 	docker logs aws-echo-lambda-localstack-1 -f
+
+awslocal-list-local-functions:
+	aws --endpoint-url $(LOCALSTACK_URL) lambda list-functions
+
+awslocal-get-rest-apis:
+	aws --endpoint-url $(LOCALSTACK_URL) apigateway get-rest-apis
+
+awslocal-describe-api:
+	aws --endpoint-url $(LOCALSTACK_URL) apigateway get-resources --rest-api-id $(REST_API_ID)

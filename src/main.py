@@ -32,12 +32,7 @@ class MainEntrypoint:
         For more I refer to:\n
         - https://medium.com/@sushantraje2000/understanding-aws-lambda-cold-start-and-warm-start-4f8297074ee
         """
-        self._logging_level = {
-            "DEBUG": logging.DEBUG,
-            "INFO": logging.INFO,
-            "WARNING": logging.WARNING,
-            "ERROR": logging.ERROR,
-        }[os.environ.get("LOGGING_LVL", "INFO")]
+        self._logging_level = os.environ.get("LOGGING_LVL", "INFO")
         logger.setLevel(self._logging_level)
 
     def __call__(self, event, context):
