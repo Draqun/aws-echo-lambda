@@ -6,7 +6,7 @@
 Welcome to a's documentation!
 =============================
 
-.. image:: _static/ai_logo.png
+.. image:: _static/log.png
     :align: center
 
 .. toctree::

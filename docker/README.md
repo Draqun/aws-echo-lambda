@@ -1,5 +1,5 @@
 # Project: aws-echo-lambda
-![Logo](https://github.com/Draqun/aws-echo-lambda/blob/fe8ed56183402a0506f7e08caaed58245347cd92/docs/_static/ai_logo.png?raw=true "aws-echo-lambda")
+![Logo](https://github.com/Draqun/aws-echo-lambda/blob/fe8ed56183402a0506f7e08caaed58245347cd92/docs/_static/log.png?raw=true "aws-echo-lambda")
 
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 [![Python Version](https://img.shields.io/badge/Python-3.11-blue)](https://www.python.org/downloads/release)
@@ -17,4 +17,3 @@ Welcome here dear developer. Since you managed to find this repository you are p
 
 ## Links:
 - Repository: https://github.com/Draqun/aws-echo-lambda
-- Logo generator: [Gencraft](https://gencraft.com)
